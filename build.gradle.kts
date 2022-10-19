@@ -109,7 +109,9 @@ tasks {
     }
 
     withType<JavaExec>().configureEach {
-        javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(16)) })
+        doFirst { // Workaround for https://github.com/MinecraftForge/ForgeGradle/pull/889
+            javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(16)) })
+        }
     }
 
     withType<PublishToCurseForgeRepository>().configureEach {
